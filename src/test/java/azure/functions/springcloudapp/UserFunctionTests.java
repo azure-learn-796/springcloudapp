@@ -1,13 +1,11 @@
-package azure.functions.springfuncapp;
+package azure.functions.springcloudapp;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class SpringfuncappApplicationTests {
+class UserFunctionTests {
 
-	@Test
-	void contextLoads() {
-	}
-
+  @Test
+  void contextLoads() {}
 }

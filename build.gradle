@@ -1,12 +1,15 @@
 plugins {
 	id 'org.springframework.boot' version '2.7.5'
 	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+	id "com.microsoft.azure.azurefunctions" version "1.11.0"
 	id 'java'
 }
 
-group = 'azure.functions.spring'
+group = 'azure.functions'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '17'
+sourceCompatibility = '11'
+
+compileJava.options.encoding = 'UTF-8'
 
 configurations {
 	compileOnly {
@@ -18,29 +21,47 @@ repositories {
 	mavenCentral()
 }
 
-ext {
-	set('springCloudAzureVersion', "4.4.0")
-	set('springCloudVersion', "2021.0.4")
-}
-
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-web'
-	implementation 'com.azure.spring:spring-cloud-azure-starter'
-	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.2.2'
-	implementation 'org.springframework.cloud:spring-cloud-function-web'
+	implementation 'org.springframework.cloud:spring-cloud-function-adapter-azure:3.2.7'
+	implementation 'com.microsoft.azure.functions:azure-functions-java-library:2.1.0'
+	implementation 'com.azure.spring:spring-cloud-azure-starter-data-cosmos:4.4.0'
 	compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
-dependencyManagement {
-	imports {
-		mavenBom "com.azure.spring:spring-cloud-azure-dependencies:${springCloudAzureVersion}"
-		mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
-	}
+// tasks.named('test') {
+// 	useJUnitPlatform()
+// }
+
+jar {
+	enabled = true
+	archiveFileName = "${rootProject.name}-${version}.jar"
+    manifest {
+        attributes 'Main-Class' : 'azure.functions.springcloudapp.SpringCloudApplication'
+    }
 }
 
-tasks.named('test') {
-	useJUnitPlatform()
+azurefunctions {
+	resourceGroup = 'rg-xxxxxx'
+	appName = 'springcloudapp'
+	region = 'eastus'
+	appServicePlanName = 'sp-xxxxxx'
+	runtime {
+		os = 'windows'
+	}
+	appSettings {
+		WEBSITE_RUN_FROM_PACKAGE = '1'
+        FUNCTIONS_EXTENSION_VERSION = '~4'
+    	FUNCTIONS_WORKER_RUNTIME = 'java'
+    	MAIN_CLASS = 'azure.functions.springcloudapp.SpringCloudApplication'
+	}
+	auth {
+		type = 'azure_cli'
+	}
+	localDebug = 'transport=dt_socket,server=y,suspend=n,address=5005'
+	deployment {
+		type = 'run_from_blob'
+	}
 }
