@@ -1,6 +1,6 @@
 package azure.functions.springcloudapp.infrastructure.repositories;
 
-import azure.functions.springcloudapp.infrastructure.entities.Todo;
+import azure.functions.springcloudapp.infrastructure.models.Todo;
 import com.azure.spring.data.cosmos.repository.ReactiveCosmosRepository;
 import org.springframework.stereotype.Repository;
 
