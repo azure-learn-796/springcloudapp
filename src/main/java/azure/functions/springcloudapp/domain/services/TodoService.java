@@ -1,6 +1,6 @@
 package azure.functions.springcloudapp.domain.services;
 
-import azure.functions.springcloudapp.domain.dto.TodoDto;
+import azure.functions.springcloudapp.domain.models.TodoDto;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 

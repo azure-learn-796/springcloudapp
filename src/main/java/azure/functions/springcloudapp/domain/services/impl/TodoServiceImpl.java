@@ -1,8 +1,8 @@
 package azure.functions.springcloudapp.domain.services.impl;
 
-import azure.functions.springcloudapp.domain.dto.TodoDto;
+import azure.functions.springcloudapp.domain.models.TodoDto;
 import azure.functions.springcloudapp.domain.services.TodoService;
-import azure.functions.springcloudapp.infrastructure.entities.Todo;
+import azure.functions.springcloudapp.infrastructure.models.Todo;
 import azure.functions.springcloudapp.infrastructure.repositories.TodoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

@@ -1,6 +1,6 @@
-package azure.functions.springcloudapp.domain.dto;
+package azure.functions.springcloudapp.domain.models;
 
-import azure.functions.springcloudapp.infrastructure.entities.Todo;
+import azure.functions.springcloudapp.infrastructure.models.Todo;
 import azure.functions.springcloudapp.utils.DateTimeUtil;
 import java.io.Serializable;
 import java.util.Objects;
